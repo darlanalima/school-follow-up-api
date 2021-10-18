@@ -11,6 +11,16 @@ module.exports = {
       data: {
         type: Sequelize.DATEONLY
       },
+      materia_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "materias",
+          key: "id"
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

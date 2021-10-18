@@ -9,14 +9,12 @@ async function createFrequencia(req, res, next) {
         const materia = await Materia.findOne({ where: { professor_id: professorId } });
 
         if (!materia) {
-            throw new createHttpError(404, "Professor não possui essa matéria encontrada");
-        }
-
-        // Verificar se a frequência da matéria foi criada.
+            throw new createHttpError(404, "Professor não possui matéria cadastrada");
+        }            
         
-        
-        const [ frequencia ] = await Frequencia.findOrCreate({ where: { data }});
-        frequencia.hasMateria
+        const [ frequencia ] = await Frequencia.findOrCreate({ 
+            where: { data, materiaId: materia.id }
+        });        
 
         res.status(201).json(frequencia);
     } catch (error) {
@@ -25,21 +23,25 @@ async function createFrequencia(req, res, next) {
     }    
 }
 
-async function registrarFrequencia(req, res, next) {
-    const alunoId = res.locals.userId;
-    const frequenciaId  = req.params.id;
-
-    try {                
+async function registrarFrequencia(req, res, next) {    
+    try {        
+        const alunoId = res.locals.userId;
+        const frequenciaId  = req.params.id;
+        
         const frequencia = await Frequencia.findOne({ where: { id: frequenciaId } });
 
         if (!frequencia) {
             throw new createHttpError(404, "Frequência não encontrada!");
         }
-
+    
         await FrequenciaAluno.findOrCreate({
             where: {
                 [Op.and]: [{ alunoId }, { frequenciaId }]
-            }                    
+            },
+            defaults: {
+                alunoId,
+                frequenciaId
+            }
         });
 
         res.status(204).end();

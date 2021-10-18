@@ -32,6 +32,10 @@ module.exports = {
         type: Sequelize.DECIMAL,
         allowNull: false
       },
+      semestre: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

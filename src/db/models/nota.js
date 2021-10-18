@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.DECIMAL,
       allowNull: false
     }, 
+    semestre: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Nota',

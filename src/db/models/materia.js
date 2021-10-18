@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
      this.belongsTo(models.Professor, { foreignKey: "professor_id" });   
      this.hasMany(models.Nota, { foreignKey: "materia_id" });
      this.belongsToMany(models.Aluno, { through: "alunos_materias", foreignKey: "materia_id", as: "alunos" });
+     this.hasMany(models.Frequencia, { foreignKey: "materia_id" });
     }
   };
   Materia.init({
