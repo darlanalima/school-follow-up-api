@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.DECIMAL,
       allowNull: false
     }, 
-    semestre: {
+    bimestre: {
       type: DataTypes.INTEGER,
       allowNull: false
     }

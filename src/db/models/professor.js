@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class Professor extends Model {
     static associate(models) {
-      this.hasMany(models.Materia, { foreignKey: "professor_id" });
+      this.hasMany(models.Materia, { foreignKey: "professor_id", as: { singular: "materia", plural: "materias" } });
     }
     senhaValida(senha) {
       return bcrypt.compareSync(senha, this.senha);

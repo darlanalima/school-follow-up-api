@@ -88,9 +88,47 @@ async function loginEscola(req, res, next) {
     }
 }
 
+async function login(req, res, next) {
+    const { email, senha } = req.body;
+    const err = new createHttpError(401, "E-mail ou senha inválidos");
+
+    try {
+        const escola = await Escola.findOne({ where: { email: email } });        
+        
+        if (!escola) {
+            const professor = await Professor.findOne({ where: { email: email } });                                    
+            
+            if (!professor) {
+                throw err;
+            } 
+
+            if (!professor.senhaValida(senha)) {
+                throw err;
+            } 
+
+            const accessToken = createAccessToken(professor.id, "professor");
+            
+            return res.json(accessToken);
+        }
+
+        if (!escola.senhaValida(senha)) {
+            throw err;
+        }                            
+
+        const accessToken = createAccessToken(escola.id, "escola");
+
+        res.json(accessToken);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+}
+
+
 
 module.exports = {
     loginAluno,
     loginProfessor,
-    loginEscola
+    loginEscola,
+    login
 }

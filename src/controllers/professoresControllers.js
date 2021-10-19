@@ -22,11 +22,11 @@ async function createProfessor(req, res, next) {
     }
 }
 
-async function getProfessor(req, res, next){
+async function getAllProfessores(req, res, next){
     try {
-        const professorIdInDB = await Professor.findAll();
+        const professores = await Professor.findAll();
 
-        res.status(201).json(professorIdInDB)
+        res.json(professores)
         
     } catch (error) {
         console.log(error)
@@ -52,7 +52,7 @@ function deleteProfessor(req, res, next) {
 
 module.exports = {
     createProfessor,
-    getProfessor,
+    getAllProfessores,
     deleteProfessor
     
 }

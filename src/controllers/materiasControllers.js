@@ -46,11 +46,9 @@ async function getMateriasOfStudent(req, res, next) {
     }
 }
 
-async function getMateriasAll(req, res, next) {
-    
-    try {
-        
-        const materias = await Materia.findAll()
+async function getAllMaterias(req, res, next) {    
+    try {        
+        const materias = await Materia.findAll();
 
         res.json(materias);
     } catch (error) {
@@ -61,11 +59,11 @@ async function getMateriasAll(req, res, next) {
 
 async function getMateriasOfTeacher(req, res, next) {
     try {
-        const professorId = req.params.id;
+        const professorId = res.locals.userId;
 
-        const materias = await Materia.findAll({ where:  { professor_id: professorId } })
+        const materias = await Materia.findOne({ where:  { professor_id: professorId } })
         
-        res.status(204).json(materias);
+        res.json(materias);        
     } catch (error) {
         console.log(error);
         next(error);
@@ -92,8 +90,7 @@ async function deleteMateria(req, res, next) {
 module.exports = {
     createMateria,
     getMateriasOfStudent,
-    getMateriasAll,
+    getAllMaterias,
     getMateriasOfTeacher,
     deleteMateria
-
 }

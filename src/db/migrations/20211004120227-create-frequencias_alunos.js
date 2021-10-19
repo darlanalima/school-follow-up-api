@@ -32,7 +32,7 @@ module.exports = {
       },
       presente: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
       },
       created_at: {
         allowNull: false,

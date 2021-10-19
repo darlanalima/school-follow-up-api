@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   FrequenciaAluno.init({
     presente: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: true
     },
     alunoId: {
         allowNull: false,        

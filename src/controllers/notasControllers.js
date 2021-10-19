@@ -2,7 +2,7 @@ const { Nota, Materia, Aluno } = require("../db/models");
 const createHttpError = require("http-errors");
 
 async function createNota(req, res, next) {    
-    const { nota, alunoId, materiaId } = req.body;
+    const { nota, alunoId, materiaId, bimestre } = req.body;
     try {
         const materia = await Materia.findOne({ where: { id: materiaId } });
         if (!materia) {
@@ -17,7 +17,8 @@ async function createNota(req, res, next) {
         const newNota = await Nota.create({ 
             nota,
             aluno_id: alunoId,
-            materia_id: materiaId
+            materia_id: materiaId,
+            bimestre
         });
 
         res.status(201).json(newNota);
